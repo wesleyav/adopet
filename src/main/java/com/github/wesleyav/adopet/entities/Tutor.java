@@ -27,6 +27,7 @@ public class Tutor implements Serializable {
 	@Length(min = 3, max = 45, message = "O nome deverá ter no mínimo {min} caracteres e no máximo {max} caracteres")
 	private String nome;
 	
+	@NotBlank(message = "O telefone é obrigatório")
 	@Length(min = 10, max = 11, message = "O telefone deve conter 11 dígitos")
 	@Pattern(regexp = "\\d{10,11}", message = "Para telefone fixo 10 dígitos, para telefone móvel 11 dígitos")
 	private String telefone;
