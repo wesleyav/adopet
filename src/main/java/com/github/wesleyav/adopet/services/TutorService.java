@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.wesleyav.adopet.entities.Tutor;
 import com.github.wesleyav.adopet.repositories.TutorRepository;
+import com.github.wesleyav.adopet.services.exceptions.ResourceEmptyException;
 import com.github.wesleyav.adopet.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -21,7 +22,14 @@ public class TutorService {
 	}
 
 	public List<Tutor> findAll() {
-		return tutorRepository.findAll();
+
+		List<Tutor> tutores = tutorRepository.findAll();
+
+		if (tutores.isEmpty()) {
+			throw new ResourceEmptyException("Nenhum registro encontrado.");
+		}
+
+		return tutores;
 	}
 
 	public Tutor findById(Integer id) {
