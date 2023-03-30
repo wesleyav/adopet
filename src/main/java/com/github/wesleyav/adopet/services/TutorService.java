@@ -1,5 +1,6 @@
 package com.github.wesleyav.adopet.services;
 
+import java.time.Instant;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -37,6 +38,7 @@ public class TutorService {
 	}
 
 	public Tutor save(Tutor tutor) {
+		tutor.setCreatedAt(Instant.now());
 		return tutorRepository.save(tutor);
 	}
 
@@ -56,6 +58,7 @@ public class TutorService {
 			tutor.setTelefone(obj.getTelefone());
 			tutor.setCidade(obj.getCidade());
 			tutor.setSobre(obj.getSobre());
+			tutor.setUpdatedAt((Instant.now()));
 			tutor.setFoto(obj.getFoto());
 
 			return tutorRepository.save(tutor);

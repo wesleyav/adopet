@@ -1,8 +1,10 @@
 package com.github.wesleyav.adopet.entities;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,29 +28,38 @@ public class Tutor implements Serializable {
 	@NotBlank(message = "O nome é obrigatório")
 	@Length(min = 3, max = 45, message = "O nome deverá ter no mínimo {min} caracteres e no máximo {max} caracteres")
 	private String nome;
-	
+
 	@NotBlank(message = "O telefone é obrigatório")
 	@Length(min = 10, max = 11, message = "O telefone deve conter 11 dígitos")
 	@Pattern(regexp = "\\d{10,11}", message = "Para telefone fixo 10 dígitos, para telefone móvel 11 dígitos")
 	private String telefone;
-	
+
 	@NotBlank(message = "A cidade é obrigatória")
 	private String cidade;
-	
+
 	@NotBlank(message = "A descrição sobre é obrigatória")
 	private String sobre;
-	
+
+	@Column(name = "created_at")
+	private Instant createdAt;
+
+	@Column(name = "updated_at")
+	private Instant updatedAt;
+
 	private String foto;
 
 	public Tutor() {
 	}
 
-	public Tutor(Integer id, String nome, String telefone, String cidade, String sobre, String foto) {
+	public Tutor(Integer id, String nome, String telefone, String cidade, String sobre, Instant createdAt,
+			Instant updatedAt, String foto) {
 		this.id = id;
 		this.nome = nome;
 		this.telefone = telefone;
 		this.cidade = cidade;
 		this.sobre = sobre;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
 		this.foto = foto;
 	}
 
@@ -92,6 +103,22 @@ public class Tutor implements Serializable {
 		this.sobre = sobre;
 	}
 
+	public Instant getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Instant createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Instant getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Instant updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
 	public String getFoto() {
 		return foto;
 	}
@@ -120,7 +147,7 @@ public class Tutor implements Serializable {
 	@Override
 	public String toString() {
 		return "Tutor [id=" + id + ", nome=" + nome + ", telefone=" + telefone + ", cidade=" + cidade + ", sobre="
-				+ sobre + ", foto=" + foto + "]";
+				+ sobre + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", foto=" + foto + "]";
 	}
 
 }
