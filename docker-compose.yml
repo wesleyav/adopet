@@ -1,0 +1,27 @@
+version: '3.9'
+services:
+  db:
+    image: mysql:8.0.31
+    ports:
+      - '3306:3306'
+    environment:
+      - MYSQL_DATABASE=db_adopet
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=root
+    volumes:
+      - ./docker/volume_mysql:/var/lib/mysql
+      - ./scripts:/docker-entrypoint-initdb.d
+  adopet:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    image: adopet
+    ports:
+      - '8080:8080'
+    environment:
+      - ADDITIONAL_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xmx1G -Xms128m -XX:MaxMetaspaceSize=128m
+      - PROFILE=local
+    links:
+      - db
+    depends_on:
+      - db
