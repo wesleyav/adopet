@@ -5,12 +5,10 @@ services:
     ports:
       - '3306:3306'
     environment:
-      - MYSQL_DATABASE=db_adopet
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_PASSWORD=root
     volumes:
-      - ./docker/volume_mysql:/var/lib/mysql
-      - ./scripts:/docker-entrypoint-initdb.d
+      - ./scripts/schema.sql:/docker-entrypoint-initdb.d/schema.sql
   adopet:
     build:
       context: ./
