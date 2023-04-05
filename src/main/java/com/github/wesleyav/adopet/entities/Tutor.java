@@ -52,6 +52,6 @@ public class Tutor implements Serializable {
 	@Column(name = "updated_at")
 	private Instant updatedAt;
 
-	private String foto;
+	private String imageUrl;
 
 }

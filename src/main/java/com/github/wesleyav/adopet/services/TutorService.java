@@ -59,7 +59,7 @@ public class TutorService {
 			tutor.setCidade(obj.getCidade());
 			tutor.setSobre(obj.getSobre());
 			tutor.setUpdatedAt((Instant.now()));
-			tutor.setFoto(obj.getFoto());
+			tutor.setImageUrl(obj.getImageUrl());
 
 			return tutorRepository.save(tutor);
 
