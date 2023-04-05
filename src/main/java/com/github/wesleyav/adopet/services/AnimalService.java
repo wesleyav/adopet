@@ -89,6 +89,7 @@ public class AnimalService {
 			animalExistente.setNome(obj.getNome());
 			animalExistente.setIdade(obj.getIdade());
 			animalExistente.setDescricao(obj.getDescricao());
+			animalExistente.setAdotado(obj.getAdotado().booleanValue());
 			animalExistente.setImageUrl(obj.getImageUrl());
 			animalExistente.setUpdatedAt((Instant.now()));
 

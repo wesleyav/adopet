@@ -39,10 +39,12 @@ public class Animal implements Serializable {
 	private String nome;
 
 	@NotNull(message = "A idade é obrigatória")
-	private Integer idade;
+	private String idade;
 
 	@NotBlank(message = "A descrição é obrigatória")
 	private String descricao;
+
+	private Boolean adotado = false;
 
 	@Column(name = "image_url")
 	private String imageUrl;
