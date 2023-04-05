@@ -10,10 +10,12 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.github.wesleyav.adopet.entities.Abrigo;
+import com.github.wesleyav.adopet.entities.Bairro;
 import com.github.wesleyav.adopet.entities.Cidade;
 import com.github.wesleyav.adopet.entities.Endereco;
 import com.github.wesleyav.adopet.entities.Estado;
 import com.github.wesleyav.adopet.repositories.AbrigoRepository;
+import com.github.wesleyav.adopet.repositories.BairroRepository;
 import com.github.wesleyav.adopet.repositories.EnderecoRepository;
 import com.github.wesleyav.adopet.services.exceptions.ResourceEmptyException;
 import com.github.wesleyav.adopet.services.exceptions.ResourceNotFoundException;
@@ -23,10 +25,12 @@ public class AbrigoService {
 
 	private AbrigoRepository abrigoRepository;
 	private EnderecoRepository enderecoRepository;
+	private BairroRepository bairroRepository;
 
-	public AbrigoService(AbrigoRepository abrigoRepository, EnderecoRepository enderecoRepository) {
+	public AbrigoService(AbrigoRepository abrigoRepository, EnderecoRepository enderecoRepository, BairroRepository bairroRepository) {
 		this.abrigoRepository = abrigoRepository;
 		this.enderecoRepository = enderecoRepository;
+		this.bairroRepository = bairroRepository;
 	}
 
 	public List<Abrigo> findAll() {
@@ -74,6 +78,9 @@ public class AbrigoService {
 			enderecoExistente.setLogradouro(enderecoAtualizado.getLogradouro());
 			enderecoExistente.setNumero(enderecoAtualizado.getNumero());
 			enderecoExistente.setCep(enderecoAtualizado.getCep());
+			
+			Bairro bairroExistente = bairroRepository.getReferenceById(id);
+			bairroExistente.setNome(obj.getEndereco().getBairro().getNome());
 
 			Cidade cidadeExistente = abrigoExistente.getEndereco().getBairro().getCidade();
 			Cidade cidadeAtualizada = obj.getEndereco().getBairro().getCidade();
