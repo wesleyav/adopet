@@ -94,7 +94,7 @@ public class AnimalService {
 			animalExistente.setUpdatedAt((Instant.now()));
 
 			Abrigo abrigoExistente = abrigoRepository.getReferenceById(id);
-			abrigoExistente.setNome(obj.getNome());
+			abrigoExistente.setNome(obj.getAbrigo().getNome());
 			abrigoExistente.setUpdatedAt(Instant.now());
 
 			Endereco enderecoExistente = enderecoRepository.getReferenceById(id);
