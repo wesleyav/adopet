@@ -44,19 +44,26 @@ public class AdocaoService {
 
 		Adocao adocao = new Adocao();
 
-		Animal animalExistente = animalRepository.getReferenceById(obj.getAnimalId());
-		animalExistente.setAdotado(true);
-		animalRepository.save(animalExistente);
+		if (obj.getAnimalId() == null) {
+			throw new ResourceEmptyException("O animalId é obrigatório");
+		} else {
+			Animal animalExistente = animalRepository.getReferenceById(obj.getAnimalId());
 
-		Tutor tutorExistente = tutorRepository.getReferenceById(obj.getTutorId());
-		tutorRepository.save(tutorExistente);
+			animalExistente.setAdotado(true);
+			animalRepository.save(animalExistente);
+			adocao.setAnimalId(obj.getAnimalId());
+		}
 
-		adocao.setAnimalId(obj.getAnimalId());
-		adocao.setTutorId(obj.getTutorId());
+		if (obj.getTutorId() == null) {
+			throw new ResourceEmptyException("O tutorId é obrigatório");
+		} else {
+			Tutor tutorExistente = tutorRepository.getReferenceById(obj.getTutorId());
+			tutorRepository.save(tutorExistente);
+			adocao.setTutorId(obj.getTutorId());
+		}
+
 		adocao.setDataAdocao(Instant.now());
-
 		return adocaoRepository.save(adocao);
 
 	}
-
 }
