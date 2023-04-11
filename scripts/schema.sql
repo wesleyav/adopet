@@ -68,6 +68,7 @@ CREATE TABLE IF NOT EXISTS `db_adopet`.`animal` (
   `nome` VARCHAR(45) NULL,
   `idade` INT NULL,
   `descricao` VARCHAR(100) NULL,
+  `adotado` TINYINT NULL,
   `image_url` VARCHAR(100) NULL,
   `created_at` DATE NULL,
   `updated_at` DATE NULL,
@@ -79,4 +80,24 @@ CREATE TABLE IF NOT EXISTS `db_adopet`.`animal` (
     REFERENCES `db_adopet`.`abrigo` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `db_adopet`.`adocao` (
+  `id` BINARY(16) NOT NULL,
+  `tutor_id` VARCHAR(45) NULL,
+  `animal_id` VARCHAR(45) NULL,
+  `data_adocao` DATE NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `db_adopet`.`tutor` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NULL,
+  `telefone` VARCHAR(11) NULL,
+  `cidade` VARCHAR(45) NULL,
+  `sobre` VARCHAR(100) NULL,
+  `created_at` DATE NULL,
+  `updated_at` DATE NULL,
+  `image_url` VARCHAR(100) NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
