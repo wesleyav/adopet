@@ -45,14 +45,12 @@ public class AnimalService {
 		this.estadoRepository = estadoRepository;
 	}
 
-	public List<Animal> findAll() {
-		List<Animal> animais = animalRepository.findAll();
-
-		if (animais.isEmpty()) {
+	public List<Animal> findAllNotAdotados() {
+		List<Animal> animaisNaoAdotados = animalRepository.findAllNaoAdotados();
+		if (animaisNaoAdotados.isEmpty()) {
 			throw new ResourceEmptyException("Nenhum registro encontrado.");
 		}
-
-		return animais;
+		return animaisNaoAdotados;
 	}
 
 	public Animal findById(Integer id) {

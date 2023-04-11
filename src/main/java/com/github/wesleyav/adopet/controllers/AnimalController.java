@@ -36,10 +36,10 @@ public class AnimalController {
 	}
 
 	@GetMapping(value = "/animais", produces = MediaType.APPLICATION_JSON_VALUE)
-	@Operation(summary = "Endpoint para listar todos os animais")
-	public ResponseEntity<List<Animal>> findAll() {
-		List<Animal> animais = animalService.findAll();
-		return new ResponseEntity<>(animais, HttpStatus.OK);
+	@Operation(summary = "Endpoint para listar todos os animais não adotados")
+	public ResponseEntity<List<Animal>> findAllNotAdotados() {
+		List<Animal> animaisNaoAdotados = animalService.findAllNotAdotados();
+		return new ResponseEntity<>(animaisNaoAdotados, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/animais/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
