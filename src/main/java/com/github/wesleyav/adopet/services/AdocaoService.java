@@ -2,6 +2,7 @@ package com.github.wesleyav.adopet.services;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 
 import javax.transaction.Transactional;
 
@@ -66,4 +67,17 @@ public class AdocaoService {
 		return adocaoRepository.save(adocao);
 
 	}
+
+	@Transactional
+	public void cancelarAdocao(UUID id) {
+
+		Adocao adocao = adocaoRepository.getReferenceById(id);
+
+		Animal animalExistente = animalRepository.getReferenceById(adocao.getAnimalId());
+		animalExistente.setAdotado(false);
+
+		adocaoRepository.deleteById(adocao.getId());
+
+	}
+
 }

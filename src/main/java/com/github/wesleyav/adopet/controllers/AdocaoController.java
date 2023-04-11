@@ -2,11 +2,14 @@ package com.github.wesleyav.adopet.controllers;
 
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +50,13 @@ public class AdocaoController {
 
 		return ResponseEntity.created(uri).body(adocao);
 
+	}
+
+	@DeleteMapping(value = "/adocoes/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@Operation(summary = "Endpoint para remover adoção por id")
+	public ResponseEntity<Void> cancelarAdocao(@PathVariable("id") UUID id) {
+		adocaoService.cancelarAdocao(id);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
 }
