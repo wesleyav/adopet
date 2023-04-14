@@ -1,4 +1,4 @@
-package com.github.wesleyav.adopet.entities.dto;
+package com.github.wesleyav.adopet.entities.dto.requests;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

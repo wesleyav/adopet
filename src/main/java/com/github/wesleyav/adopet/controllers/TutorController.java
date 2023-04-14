@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.github.wesleyav.adopet.entities.Tutor;
-import com.github.wesleyav.adopet.entities.dto.TutorRequestDTO;
-import com.github.wesleyav.adopet.entities.dto.TutorResponseDTO;
-import com.github.wesleyav.adopet.entities.dto.TutorUpdateDTO;
+import com.github.wesleyav.adopet.entities.dto.requests.TutorRequestDTO;
+import com.github.wesleyav.adopet.entities.dto.responses.TutorResponseDTO;
+import com.github.wesleyav.adopet.entities.dto.updates.TutorUpdateDTO;
 import com.github.wesleyav.adopet.services.TutorService;
 
 import io.swagger.v3.oas.annotations.Operation;

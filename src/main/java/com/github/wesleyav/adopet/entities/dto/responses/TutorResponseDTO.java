@@ -1,11 +1,15 @@
-package com.github.wesleyav.adopet.entities.dto;
+package com.github.wesleyav.adopet.entities.dto.responses;
+
+import java.time.Instant;
 
 import com.github.wesleyav.adopet.entities.Tutor;
 
 import lombok.Getter;
 
 @Getter
-public class TutorUpdateDTO {
+public class TutorResponseDTO {
+
+	private Integer id;
 
 	private String nome;
 
@@ -19,13 +23,20 @@ public class TutorUpdateDTO {
 
 	private String cidade;
 
-	public TutorUpdateDTO(Tutor tutor) {
+	private Instant createdAt;
+
+	private Instant updatedAt;
+
+	public TutorResponseDTO(Tutor tutor) {
+		this.id = tutor.getId();
 		this.nome = tutor.getNome();
 		this.email = tutor.getEmail();
 		this.telefone = tutor.getTelefone();
 		this.sobre = tutor.getSobre();
 		this.imageUrl = tutor.getImageUrl();
 		this.cidade = tutor.getCidade();
+		this.createdAt = tutor.getCreatedAt();
+		this.updatedAt = tutor.getUpdatedAt();
 	}
 
 }
