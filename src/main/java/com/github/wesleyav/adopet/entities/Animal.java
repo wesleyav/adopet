@@ -2,28 +2,30 @@ package com.github.wesleyav.adopet.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Length;
+import com.github.wesleyav.adopet.entities.dto.requests.AnimalRequestDTO;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@ToString(of = { "id", "nome", "idade", "descricao", "adotado", "imageUrl", "createdAt", "updatedAt", "abrigo" })
 @Entity
 @Table(name = "animal")
 public class Animal implements Serializable {
@@ -34,29 +36,48 @@ public class Animal implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@NotBlank(message = "O nome é obrigatório")
-	@Length(min = 3, max = 15, message = "O nome deverá ter no mínimo {min} caracteres e no máximo {max} caracteres")
 	private String nome;
 
-	@NotNull(message = "A idade é obrigatória")
 	private String idade;
 
-	@NotBlank(message = "A descrição é obrigatória")
 	private String descricao;
 
-	private Boolean adotado = false;
+	private Boolean adotado;
 
-	@Column(name = "image_url")
 	private String imageUrl;
 
-	@Column(name = "created_at")
 	private Instant createdAt;
 
-	@Column(name = "updated_at")
 	private Instant updatedAt;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "abrigo", referencedColumnName = "id")
+	@ManyToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name = "abrigo_id", referencedColumnName = "id")
 	private Abrigo abrigo;
+
+	public Animal(AnimalRequestDTO animalRequestDTO, Abrigo abrigo) {
+		this.nome = animalRequestDTO.getNome();
+		this.idade = animalRequestDTO.getIdade();
+		this.descricao = animalRequestDTO.getDescricao();
+		this.adotado = animalRequestDTO.getAdotado();
+		this.imageUrl = animalRequestDTO.getImageUrl();
+		this.abrigo = abrigo;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Animal other = (Animal) obj;
+		return Objects.equals(id, other.id);
+	}
 
 }
