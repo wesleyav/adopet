@@ -16,7 +16,9 @@ import com.github.wesleyav.adopet.entities.Endereco;
 import com.github.wesleyav.adopet.entities.Estado;
 import com.github.wesleyav.adopet.repositories.AbrigoRepository;
 import com.github.wesleyav.adopet.repositories.BairroRepository;
+import com.github.wesleyav.adopet.repositories.CidadeRepository;
 import com.github.wesleyav.adopet.repositories.EnderecoRepository;
+import com.github.wesleyav.adopet.repositories.EstadoRepository;
 import com.github.wesleyav.adopet.services.exceptions.ResourceEmptyException;
 import com.github.wesleyav.adopet.services.exceptions.ResourceNotFoundException;
 
@@ -26,11 +28,16 @@ public class AbrigoService {
 	private AbrigoRepository abrigoRepository;
 	private EnderecoRepository enderecoRepository;
 	private BairroRepository bairroRepository;
+	private CidadeRepository cidadeRepository;
+	private EstadoRepository estadoRepository;
 
-	public AbrigoService(AbrigoRepository abrigoRepository, EnderecoRepository enderecoRepository, BairroRepository bairroRepository) {
+	public AbrigoService(AbrigoRepository abrigoRepository, EnderecoRepository enderecoRepository,
+			BairroRepository bairroRepository, CidadeRepository cidadeRepository, EstadoRepository estadoRepository) {
 		this.abrigoRepository = abrigoRepository;
 		this.enderecoRepository = enderecoRepository;
 		this.bairroRepository = bairroRepository;
+		this.cidadeRepository = cidadeRepository;
+		this.estadoRepository = estadoRepository;
 	}
 
 	public List<Abrigo> findAll() {
@@ -49,11 +56,26 @@ public class AbrigoService {
 
 	@Transactional
 	public Abrigo save(Abrigo abrigo) {
+
+		if (abrigo.getEndereco().getBairro() == null) {
+			throw new ResourceEmptyException("Bairro obrigatório.");
+		}
+
+		if (abrigo.getEndereco().getBairro().getCidade() == null) {
+			throw new ResourceEmptyException("Cidade obrigatório.");
+		}
+
+		if (abrigo.getEndereco().getBairro().getCidade().getEstado() == null) {
+			throw new ResourceEmptyException("Estado obrigatório.");
+		}
+
 		Endereco endereco = abrigo.getEndereco();
 		enderecoRepository.save(endereco);
-		abrigo.setEndereco(endereco);
+
 		abrigo.setCreatedAt(Instant.now());
+
 		return abrigoRepository.save(abrigo);
+
 	}
 
 	public void deleteById(Integer id) {
@@ -66,32 +88,66 @@ public class AbrigoService {
 
 	@Transactional
 	public Abrigo update(Integer id, Abrigo obj) {
+
+		if (obj.getEndereco() == null) {
+			throw new ResourceEmptyException("Endereço obrigatório.");
+		}
+		if (obj.getEndereco().getId() == null) {
+			throw new ResourceEmptyException("id nullo.");
+		}
+
+		if (obj.getEndereco().getBairro() == null) {
+			throw new ResourceEmptyException("Bairro obrigatório.");
+		}
+
+		if (obj.getEndereco().getBairro().getCidade() == null) {
+			throw new ResourceEmptyException("Cidade obrigatório.");
+		}
+
+		if (obj.getEndereco().getBairro().getCidade().getEstado() == null) {
+			throw new ResourceEmptyException("Estado obrigatório.");
+		}
+
 		try {
-			Abrigo abrigoExistente = abrigoRepository.getReferenceById(id);
+			Abrigo abrigoExistente = abrigoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
 
 			if (abrigoExistente == null) {
-				throw new ResourceEmptyException("Nenhum registro encontrado.");
+				throw new ResourceEmptyException("asdf.");
 			}
 
-			Endereco enderecoExistente = abrigoExistente.getEndereco();
-			Endereco enderecoAtualizado = obj.getEndereco();
-			enderecoExistente.setLogradouro(enderecoAtualizado.getLogradouro());
-			enderecoExistente.setNumero(enderecoAtualizado.getNumero());
-			enderecoExistente.setCep(enderecoAtualizado.getCep());
-			
-			Bairro bairroExistente = bairroRepository.getReferenceById(id);
-			bairroExistente.setNome(obj.getEndereco().getBairro().getNome());
-
-			Cidade cidadeExistente = abrigoExistente.getEndereco().getBairro().getCidade();
-			Cidade cidadeAtualizada = obj.getEndereco().getBairro().getCidade();
-			cidadeExistente.setNome(cidadeAtualizada.getNome());
-
-			Estado estadoExistente = abrigoExistente.getEndereco().getBairro().getCidade().getEstado();
-			Estado estadoAtualizado = obj.getEndereco().getBairro().getCidade().getEstado();
-			estadoExistente.setSigla(estadoAtualizado.getSigla());
-
 			abrigoExistente.setNome(obj.getNome());
-			abrigoExistente.setUpdatedAt(Instant.now());
+			abrigoExistente.setEmail(obj.getEmail());
+
+			Integer enderecoId = obj.getEndereco().getId();
+			Endereco endereco = enderecoRepository.findById(enderecoId)
+					.orElseThrow(() -> new ResourceNotFoundException(enderecoId));
+			endereco.setId(enderecoId);
+			endereco.setLogradouro(obj.getEndereco().getLogradouro());
+			endereco.setNumero(obj.getEndereco().getNumero());
+			endereco.setCep(obj.getEndereco().getCep());
+
+			Integer bairroId = obj.getEndereco().getBairro().getId();
+			Bairro bairro = bairroRepository.findById(bairroId)
+					.orElseThrow(() -> new ResourceNotFoundException(bairroId));
+			bairro.setId(bairroId);
+			bairro.setNome(obj.getEndereco().getBairro().getNome());
+
+			Integer cidadeId = obj.getEndereco().getBairro().getCidade().getId();
+			Cidade cidade = cidadeRepository.findById(cidadeId)
+					.orElseThrow(() -> new ResourceNotFoundException(cidadeId));
+			cidade.setId(cidadeId);
+			cidade.setNome(obj.getEndereco().getBairro().getCidade().getNome());
+
+			Integer estadoId = obj.getEndereco().getBairro().getCidade().getEstado().getId();
+			Estado estado = estadoRepository.findById(estadoId)
+					.orElseThrow(() -> new ResourceNotFoundException(estadoId));
+			estado.setId(estadoId);
+			estado.setSigla(obj.getEndereco().getBairro().getCidade().getEstado().getSigla());
+
+			cidade.setEstado(estado);
+			bairro.setCidade(cidade);
+			endereco.setBairro(bairro);
+			abrigoExistente.setEndereco(endereco);
 
 			return abrigoRepository.save(abrigoExistente);
 

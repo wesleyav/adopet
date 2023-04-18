@@ -2,9 +2,9 @@ package com.github.wesleyav.adopet.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,12 +14,16 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@ToString(of = { "id", "nome", "email", "createdAt", "updatedAt" })
 @Entity
 @Table(name = "abrigo")
 public class Abrigo implements Serializable {
@@ -32,14 +36,31 @@ public class Abrigo implements Serializable {
 
 	private String nome;
 
-	@Column(name = "created_at")
+	private String email;
+
 	private Instant createdAt;
 
-	@Column(name = "updated_at")
 	private Instant updatedAt;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name = "endereco", referencedColumnName = "id")
 	private Endereco endereco;
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Abrigo other = (Abrigo) obj;
+		return Objects.equals(id, other.id);
+	}
 
 }
