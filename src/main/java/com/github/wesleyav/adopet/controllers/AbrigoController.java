@@ -1,11 +1,10 @@
 package com.github.wesleyav.adopet.controllers;
 
 import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -41,17 +41,20 @@ public class AbrigoController {
 
 	@GetMapping(value = "/abrigos", produces = MediaType.APPLICATION_JSON_VALUE)
 	@Operation(summary = "Endpoint para listar todos os abrigos")
-	public ResponseEntity<List<AbrigoResponseDTO>> findAll() {
-		List<Abrigo> abrigos = abrigoService.findAll();
-		List<AbrigoResponseDTO> abrigoResponseDTOs = abrigos.stream().map(AbrigoResponseDTO::new)
-				.collect(Collectors.toList());
-		return new ResponseEntity<>(abrigoResponseDTOs, HttpStatus.OK);
+	public ResponseEntity<Page<AbrigoResponseDTO>> findAll(@RequestParam(defaultValue = "0") Integer pageNumber,
+			@RequestParam(defaultValue = "10") Integer pageSize) {
+		Page<AbrigoResponseDTO> abrigos = abrigoService.findAll(pageNumber, pageSize);
+
+		return new ResponseEntity<>(abrigos, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/abrigos/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@Operation(summary = "Endpoint para listar abrigo por id")
-	public ResponseEntity<Abrigo> findById(@PathVariable Integer id) {
-		return new ResponseEntity<>(abrigoService.findById(id), HttpStatus.OK);
+	public ResponseEntity<AbrigoResponseDTO> findById(@PathVariable Integer id) {
+		Abrigo abrigo = abrigoService.findById(id);
+		AbrigoResponseDTO abrigoResponseDTO = new AbrigoResponseDTO(abrigo);
+
+		return new ResponseEntity<>(abrigoResponseDTO, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/abrigos", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -1,12 +1,14 @@
 package com.github.wesleyav.adopet.services;
 
 import java.time.Instant;
-import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.github.wesleyav.adopet.entities.Abrigo;
@@ -14,6 +16,7 @@ import com.github.wesleyav.adopet.entities.Bairro;
 import com.github.wesleyav.adopet.entities.Cidade;
 import com.github.wesleyav.adopet.entities.Endereco;
 import com.github.wesleyav.adopet.entities.Estado;
+import com.github.wesleyav.adopet.entities.dto.responses.AbrigoResponseDTO;
 import com.github.wesleyav.adopet.repositories.AbrigoRepository;
 import com.github.wesleyav.adopet.repositories.BairroRepository;
 import com.github.wesleyav.adopet.repositories.CidadeRepository;
@@ -40,19 +43,22 @@ public class AbrigoService {
 		this.estadoRepository = estadoRepository;
 	}
 
-	public List<Abrigo> findAll() {
-		List<Abrigo> abrigos = abrigoRepository.findAll();
+	public Page<AbrigoResponseDTO> findAll(Integer pageNumber, Integer pageSize) {
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 
-		if (abrigos.isEmpty()) {
+		Page<Abrigo> abrigosPage = abrigoRepository.findAll(pageable);
+
+		if (abrigosPage.isEmpty()) {
 			throw new ResourceEmptyException("Nenhum registro encontrado.");
 		}
 
-		return abrigos;
+		return abrigosPage.map(AbrigoResponseDTO::new);
 	}
 
 	public Abrigo findById(Integer id) {
 		return abrigoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
 	}
+
 
 	@Transactional
 	public Abrigo save(Abrigo abrigo) {
