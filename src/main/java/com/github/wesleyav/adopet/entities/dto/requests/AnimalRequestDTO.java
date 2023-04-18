@@ -42,6 +42,7 @@ public class AnimalRequestDTO {
 		animal.setNome(this.nome);
 		animal.setIdade(this.idade);
 		animal.setDescricao(this.descricao);
+		animal.setAdotado(this.adotado);
 		animal.setImageUrl(this.imageUrl);
 
 		Abrigo abrigo = new Abrigo();

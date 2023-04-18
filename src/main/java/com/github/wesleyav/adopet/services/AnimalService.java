@@ -89,10 +89,10 @@ public class AnimalService {
 				animalExistente.setImageUrl(obj.getImageUrl());
 				animalExistente.setUpdatedAt((Instant.now()));
 
-				Abrigo abrigoId = abrigoRepository.getReferenceById(obj.getAbrigo().getId());
+				Abrigo abrigoExistente = abrigoRepository.getReferenceById(obj.getAbrigo().getId());
+				abrigoExistente.setId(obj.getAbrigo().getId());
 
-				animalExistente.setAbrigo(abrigoId);
-
+				animalExistente.setAbrigo(abrigoExistente);
 				return animalRepository.save(animalExistente);
 
 			} else {
