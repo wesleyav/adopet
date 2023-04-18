@@ -1,7 +1,6 @@
 package com.github.wesleyav.adopet.services;
 
 import java.time.Instant;
-import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -9,10 +8,14 @@ import javax.transaction.Transactional;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.github.wesleyav.adopet.entities.Abrigo;
 import com.github.wesleyav.adopet.entities.Animal;
+import com.github.wesleyav.adopet.entities.dto.responses.AnimalResponseDTO;
 import com.github.wesleyav.adopet.repositories.AbrigoRepository;
 import com.github.wesleyav.adopet.repositories.AnimalRepository;
 import com.github.wesleyav.adopet.services.exceptions.ResourceEmptyException;
@@ -29,12 +32,16 @@ public class AnimalService {
 		this.abrigoRepository = abrigoRepository;
 	}
 
-	public List<Animal> findAllNotAdotados() {
-		List<Animal> animaisNaoAdotados = animalRepository.findAllNaoAdotados();
-		if (animaisNaoAdotados.isEmpty()) {
+	public Page<AnimalResponseDTO> findAllNaoAdotados(Integer pageNumber, Integer pageSize) {
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+
+		Page<Animal> animaisPage = animalRepository.findAll(pageable);
+
+		if (animaisPage.isEmpty()) {
 			throw new ResourceEmptyException("Nenhum registro encontrado.");
 		}
-		return animaisNaoAdotados;
+
+		return animaisPage.map(AnimalResponseDTO::new);
 	}
 
 	public Animal findById(Integer id) {

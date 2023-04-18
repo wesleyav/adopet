@@ -1,11 +1,10 @@
 package com.github.wesleyav.adopet.controllers;
 
 import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -45,17 +45,20 @@ public class AnimalController {
 
 	@GetMapping(value = "/animais", produces = MediaType.APPLICATION_JSON_VALUE)
 	@Operation(summary = "Endpoint para listar todos os animais não adotados")
-	public ResponseEntity<List<AnimalResponseDTO>> findAllNotAdotados() {
-		List<Animal> animais = animalService.findAllNotAdotados();
-		List<AnimalResponseDTO> animalResponseDTOs = animais.stream().map(AnimalResponseDTO::new)
-				.collect(Collectors.toList());
-		return new ResponseEntity<>(animalResponseDTOs, HttpStatus.OK);
+	public ResponseEntity<Page<AnimalResponseDTO>> findAllNaoAdotados(
+			@RequestParam(defaultValue = "0") Integer pageNumber, @RequestParam(defaultValue = "10") Integer pageSize) {
+
+		Page<AnimalResponseDTO> animais = animalService.findAllNaoAdotados(pageNumber, pageSize);
+
+		return new ResponseEntity<>(animais, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/animais/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@Operation(summary = "Endpoint para listar animal por id")
-	public ResponseEntity<Animal> findById(@PathVariable Integer id) {
-		return new ResponseEntity<>(animalService.findById(id), HttpStatus.OK);
+	public ResponseEntity<AnimalResponseDTO> findById(@PathVariable Integer id) {
+		Animal animal = animalService.findById(id);
+		AnimalResponseDTO animalResponseDTO = new AnimalResponseDTO(animal);
+		return new ResponseEntity<>(animalResponseDTO, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/animais", produces = MediaType.APPLICATION_JSON_VALUE)
