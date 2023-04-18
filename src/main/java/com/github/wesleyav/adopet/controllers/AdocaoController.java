@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.github.wesleyav.adopet.entities.Adocao;
+import com.github.wesleyav.adopet.entities.dto.requests.AdocaoRequestDTO;
+import com.github.wesleyav.adopet.entities.dto.responses.AdocaoResponseDTO;
 import com.github.wesleyav.adopet.services.AdocaoService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,18 +39,22 @@ public class AdocaoController {
 	@Operation(summary = "Endpoint para listar todos as adoções")
 	public ResponseEntity<List<Adocao>> findAll() {
 		List<Adocao> adocoes = adocaoService.findAll();
+		System.out.println(adocoes.toString());
 		return new ResponseEntity<>(adocoes, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/adocoes", produces = MediaType.APPLICATION_JSON_VALUE)
 	@Operation(summary = "Endpoint para criar uma nova adoção")
-	public ResponseEntity<Adocao> adotar(@RequestBody Adocao adocao) {
+	public ResponseEntity<AdocaoResponseDTO> adotar(@RequestBody AdocaoRequestDTO adocaoRequestDTO) {
+		Adocao adocao = adocaoRequestDTO.toEntity(adocaoRequestDTO);
 		adocao = adocaoService.adotar(adocao);
-
+		
+		AdocaoResponseDTO adocaoResponseDTO = new AdocaoResponseDTO(adocao);
+		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/api/v1/adocoes/{id}")
 				.buildAndExpand(adocao.getId()).toUri();
 
-		return ResponseEntity.created(uri).body(adocao);
+		return ResponseEntity.created(uri).body(adocaoResponseDTO);
 
 	}
 
