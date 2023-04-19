@@ -1,12 +1,12 @@
 package com.github.wesleyav.adopet.entities.dto.requests;
 
-import java.time.Instant;
 import java.util.UUID;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.github.wesleyav.adopet.entities.Adocao;
+import com.github.wesleyav.adopet.entities.Animal;
+import com.github.wesleyav.adopet.entities.Tutor;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +19,6 @@ import lombok.Setter;
 @Setter
 public class AdocaoRequestDTO {
 
-	@NotBlank(message = "O UUID é obrigatório")
 	private UUID id;
 
 	@NotNull(message = "O id do animal é obrigatório")
@@ -28,15 +27,16 @@ public class AdocaoRequestDTO {
 	@NotNull(message = "O id do tutor é obrigatório")
 	private Integer tutorId;
 
-	private Instant dataAdocao;
-
-	public static Adocao toEntity(AdocaoRequestDTO adocaoRequestDTO) {
+	public Adocao toEntity() {
 		Adocao adocao = new Adocao();
 
-		adocao.setId(adocaoRequestDTO.getId());
-		adocao.setAnimalId(adocaoRequestDTO.getAnimalId());
-		adocao.setTutorId(adocaoRequestDTO.getTutorId());
-		adocao.setDataAdocao(adocaoRequestDTO.getDataAdocao());
+		Animal animal = new Animal();
+		animal.setId(this.animalId);
+		adocao.setAnimalId(animal);
+
+		Tutor tutor = new Tutor();
+		tutor.setId(this.tutorId);
+		adocao.setTutorId(tutor);
 
 		return adocao;
 	}

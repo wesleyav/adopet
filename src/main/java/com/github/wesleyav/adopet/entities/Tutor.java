@@ -2,13 +2,18 @@ package com.github.wesleyav.adopet.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,8 +51,12 @@ public class Tutor implements Serializable {
 	private Instant updatedAt;
 
 	private String imageUrl;
-	
+
 	private String senha;
+
+	@ManyToMany(mappedBy = "tutores")
+	@JsonIgnore
+	private List<Animal> animais = new ArrayList<>();
 
 	@Override
 	public int hashCode() {

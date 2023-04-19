@@ -1,34 +1,33 @@
 package com.github.wesleyav.adopet.entities;
 
-import java.io.Serializable;
 import java.time.Instant;
-import java.util.Objects;
 import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import com.github.wesleyav.adopet.entities.dto.requests.AdocaoRequestDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString(of = { "id", "animalId", "tutorId", "dataAdocao" })
+//@ToString(of = { "id", "nome", "email", "telefone", "cidade", "sobre", "imageUrl" })
 @Entity
 @Table(name = "adocao")
-public class Adocao implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Adocao {
 
 	@Id
 	@GeneratedValue(generator = "UUID")
@@ -36,27 +35,20 @@ public class Adocao implements Serializable {
 	@Column(columnDefinition = "BINARY(16)")
 	private UUID id;
 
-	private Integer animalId;
+	@ManyToOne
+	@JoinColumn(name = "tutor_id")
+	private Tutor tutorId;
 
-	private Integer tutorId;
+	@ManyToOne
+	@JoinColumn(name = "animal_id")
+	private Animal animalId;
 
 	private Instant dataAdocao;
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
+	public Adocao(AdocaoRequestDTO adocaoRequestDTO, Animal animal, Tutor tutor) {
+		this.tutorId = tutor;
+		this.animalId = animal;
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Adocao other = (Adocao) obj;
-		return Objects.equals(id, other.id);
 	}
 
 }

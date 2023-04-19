@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import com.github.wesleyav.adopet.entities.Adocao;
 import com.github.wesleyav.adopet.entities.Animal;
 import com.github.wesleyav.adopet.entities.Tutor;
-import com.github.wesleyav.adopet.entities.dto.responses.AdocaoResponseDTO;
 import com.github.wesleyav.adopet.repositories.AdocaoRepository;
 import com.github.wesleyav.adopet.repositories.AnimalRepository;
 import com.github.wesleyav.adopet.repositories.TutorRepository;
@@ -34,57 +33,54 @@ public class AdocaoService {
 		this.tutorRepository = tutorRepository;
 	}
 
-	public Page<AdocaoResponseDTO> findAll(Integer pageNumber, Integer pageSize) {
+	public Page<Adocao> findAll(Integer pageNumber, Integer pageSize) {
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 
-		Page<Adocao> adocoesPage = adocaoRepository.findAll(pageable);
+		Page<Adocao> adocaoPage = adocaoRepository.findAll(pageable);
 
-		if (adocoesPage.isEmpty()) {
+		if (adocaoPage.isEmpty()) {
 			throw new ResourceEmptyException("Nenhum registro encontrado.");
 		}
 
-		return adocoesPage.map(AdocaoResponseDTO::new);
+		return adocaoPage;
 	}
 
 	@Transactional
 	public Adocao adotar(Adocao obj) {
-
 		Adocao adocao = new Adocao();
 
 		if (obj.getAnimalId() == null) {
 			throw new ResourceEmptyException("O animalId é obrigatório");
 		} else {
-			Animal animalExistente = animalRepository.findById(obj.getAnimalId())
-					.orElseThrow(() -> new ResourceNotFoundException(obj.getAnimalId() + " animalId"));
+			Animal animalExistente = animalRepository.findById(obj.getAnimalId().getId())
+					.orElseThrow(() -> new ResourceNotFoundException(obj.getAnimalId().getId()));
+
+			if (animalExistente.getAdotado() == true) {
+				throw new ResourceEmptyException("Animal já está adotado.");
+			}
 
 			animalExistente.setAdotado(true);
-			animalRepository.save(animalExistente);
 			adocao.setAnimalId(obj.getAnimalId());
 		}
 
 		if (obj.getTutorId() == null) {
 			throw new ResourceEmptyException("O tutorId é obrigatório");
 		} else {
-			Tutor tutorExistente = tutorRepository.findById(obj.getTutorId())
-					.orElseThrow(() -> new ResourceNotFoundException(obj.getTutorId() + " tutorId"));
-			tutorRepository.save(tutorExistente);
+			Tutor tutorExistente = tutorRepository.findById(obj.getTutorId().getId())
+					.orElseThrow(() -> new ResourceNotFoundException(obj.getTutorId()));
 			adocao.setTutorId(obj.getTutorId());
 		}
-
 		adocao.setDataAdocao(Instant.now());
 		return adocaoRepository.save(adocao);
 	}
 
 	@Transactional
 	public void cancelarAdocao(UUID id) {
-
 		Adocao adocao = adocaoRepository.getReferenceById(id);
 
-		Animal animalExistente = animalRepository.getReferenceById(adocao.getAnimalId());
+		Animal animalExistente = animalRepository.getReferenceById(adocao.getAnimalId().getId());
 		animalExistente.setAdotado(false);
 
 		adocaoRepository.deleteById(adocao.getId());
-
 	}
-
 }
