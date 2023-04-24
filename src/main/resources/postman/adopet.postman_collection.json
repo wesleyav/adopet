@@ -67,7 +67,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nome\": \"Tutor 1\",\r\n    \"telefone\": \"11111111111\",\r\n    \"cidade\": \"Cidade 1\",\r\n    \"sobre\": \"Descrição do sobre\",\r\n    \"imagemUrl\": \"url\"\r\n}",
+									"raw": "{\r\n    \"nome\": \"Tutor 1\",\r\n    \"email\": \"email@teste.com\",\r\n    \"telefone\": \"12345678912\",\r\n    \"sobre\": \"Descrição do sobre\",\r\n    \"imageUrl\": \"http://exemplo.com/imagem1.jpg\",\r\n    \"cidade\": \"Cidade 1\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -125,7 +125,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nome\": \"Tutor 1 update\",\r\n    \"telefone\": \"11111111111\",\r\n    \"cidade\": \"Cidade 1 update\",\r\n    \"sobre\": \"Descrição do sobre update\",\r\n    \"imageUrl\": \"url update\"\r\n}",
+									"raw": "{\r\n    \"nome\": \"Tutor 1 update\",\r\n    \"email\": \"email2@teste.com.br\",\r\n    \"telefone\": \"99999999999\",\r\n    \"sobre\": \"Descrição do sobre update\",\r\n    \"imageUrl\": \"http://exemplo.com/imagem2.jpg\",\r\n    \"cidade\": \"Cidade 1 update\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -143,155 +143,6 @@
 										"api",
 										"v1",
 										"tutores",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "1"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "animais",
-					"item": [
-						{
-							"name": "findAll",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8081/api/v1/animais",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8081",
-									"path": [
-										"api",
-										"v1",
-										"animais"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "findById",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8081/api/v1/animais/:id",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8081",
-									"path": [
-										"api",
-										"v1",
-										"animais",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "1"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "save",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"nome\": \"Animal 1\",\r\n    \"idade\": \"5\",\r\n    \"descricao\": \"Descrição\",\r\n    \"adotado\": false,\r\n    \"imageUrl\": \"url\",\r\n    \"abrigo\": {\r\n        \"nome\": \"Abrigo 1\",\r\n        \"endereco\": {\r\n            \"logradouro\": \"Logradouro do animal 1\",\r\n            \"numero\": \"55\",\r\n            \"cep\": \"12232000\",\r\n            \"bairro\": {\r\n                \"nome\": \"Bairro 1\",\r\n                \"cidade\": {\r\n                    \"nome\": \"Cidade 1\",\r\n                    \"estado\": {\r\n                        \"sigla\": \"SP\"\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8081/api/v1/animais",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8081",
-									"path": [
-										"api",
-										"v1",
-										"animais"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "deleteById",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8081/api/v1/animais/:id",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8081",
-									"path": [
-										"api",
-										"v1",
-										"animais",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "1"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "update",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"nome\": \"Animal 1 update\",\r\n    \"idade\": 7,\r\n    \"descricao\": \"Descrição update\",\r\n    \"adotado\": true,\r\n    \"imageUrl\": \"url update\",\r\n    \"abrigo\": {\r\n        \"nome\": \"Abrigo 1 update\",\r\n        \"endereco\": {\r\n            \"logradouro\": \"Logradouro do animal 1 update\",\r\n            \"numero\": \"55 update\",\r\n            \"cep\": \"12232333\",\r\n            \"bairro\": {\r\n                \"nome\": \"Bairro 1 update\",\r\n                \"cidade\": {\r\n                    \"nome\": \"Cidade 1 update\",\r\n                    \"estado\": {\r\n                        \"sigla\": \"RN\"\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8081/api/v1/animais/:id",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8081",
-									"path": [
-										"api",
-										"v1",
-										"animais",
 										":id"
 									],
 									"variable": [
@@ -331,6 +182,38 @@
 							"response": []
 						},
 						{
+							"name": "findAll Page",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/api/v1/abrigos?pageSize=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"v1",
+										"abrigos"
+									],
+									"query": [
+										{
+											"key": "pageNumber",
+											"value": "0",
+											"disabled": true
+										},
+										{
+											"key": "pageSize",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "findById",
 							"request": {
 								"method": "GET",
@@ -365,7 +248,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nome\": \"Abrigo 1\",\r\n    \"endereco\": {\r\n        \"logradouro\": \"Rua dos abrigos\",\r\n        \"numero\": \"2004\",\r\n        \"cep\": \"12234000\",\r\n        \"bairro\": {\r\n            \"nome\": \"Bairro 1\",\r\n            \"cidade\": {\r\n                \"nome\": \"Cidade do abrigo\",\r\n                \"estado\": {\r\n                    \"sigla\": \"SP\"\r\n                }\r\n            }\r\n        }\r\n    }\r\n}",
+									"raw": "{\r\n    \"nome\": \"Abrigo 1\",\r\n    \"email\": \"abrigo@teste.com.br\",\r\n    \"endereco\": {\r\n        \"logradouro\": \"Rua dos abrigos\",\r\n        \"numero\": \"2004\",\r\n        \"cep\": \"12234000\",\r\n        \"bairro\": {\r\n            \"nome\": \"Bairro 1\",\r\n            \"cidade\": {\r\n                \"nome\": \"Cidade 1\",\r\n                \"estado\": {\r\n                    \"sigla\": \"SP\"\r\n                }\r\n            }\r\n        }\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -423,7 +306,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nome\": \"Abrigo update\",\r\n    \"endereco\": {\r\n        \"logradouro\": \"Rua dos abrigos update\",\r\n        \"numero\": \"2004 update\",\r\n        \"cep\": \"12234222\",\r\n        \"bairro\": {\r\n            \"nome\": \"Bairro 1 update\",\r\n            \"cidade\": {\r\n                \"nome\": \"Cidade do abrigo update\",\r\n                \"estado\": {\r\n                    \"sigla\": \"RN\"\r\n                }\r\n            }\r\n        }\r\n    }\r\n}",
+									"raw": "{\r\n    \"nome\": \"Abrigo update\",\r\n    \"email\": \"email update\",\r\n    \"endereco\": {\r\n        \"id\": 1,\r\n        \"logradouro\": \"Rua dos abrigos update\",\r\n        \"numero\": \"2004 update\",\r\n        \"cep\": \"12234222\",\r\n        \"bairro\": {\r\n            \"id\": 1,\r\n            \"nome\": \"bairro nome update\",\r\n            \"cidade\": {\r\n                \"id\": 1,\r\n                \"nome\": \"cidade update 3\",\r\n                \"estado\": {\r\n                    \"id\": 1,\r\n                    \"sigla\": \"RJ\"\r\n                }\r\n            }\r\n        }\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -441,6 +324,166 @@
 										"api",
 										"v1",
 										"abrigos",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "animais",
+					"item": [
+						{
+							"name": "findAll Page",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/api/v1/animais?pageSize=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"v1",
+										"animais"
+									],
+									"query": [
+										{
+											"key": "pageNumber",
+											"value": "0",
+											"disabled": true
+										},
+										{
+											"key": "pageSize",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "findById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/api/v1/animais/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"v1",
+										"animais",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "save",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"Animal 1\",\r\n    \"idade\": \"5\",\r\n    \"descricao\": \"Descrição\",\r\n    \"adotado\": false,\r\n    \"imageUrl\": \"url\",\r\n    \"abrigoId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8081/api/v1/animais",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"v1",
+										"animais"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteById",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/api/v1/animais/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"v1",
+										"animais",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"Animal 1 update abrigo 2\",\r\n    \"idade\": 8,\r\n    \"descricao\": \"Descrição update teste\",\r\n    \"adotado\": false,\r\n    \"imageUrl\": \"http://exemplo.com/imagem.jpg\",\r\n    \"abrigoId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8081/api/v1/animais/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"v1",
+										"animais",
 										":id"
 									],
 									"variable": [
@@ -494,7 +537,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8081/api/v1/adocoes/1776ed05-a013-433b-a989-003335ca7ed1",
+									"raw": "http://localhost:8081/api/v1/adocoes/fc232db0-1be5-4c62-8ab0-71d338bafb47",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -504,19 +547,19 @@
 										"api",
 										"v1",
 										"adocoes",
-										"1776ed05-a013-433b-a989-003335ca7ed1"
+										"fc232db0-1be5-4c62-8ab0-71d338bafb47"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "findAll",
+							"name": "findAll Page",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8081/api/v1/adocoes",
+									"raw": "http://localhost:8081/api/v1/adocoes?pageSize=2",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -526,6 +569,17 @@
 										"api",
 										"v1",
 										"adocoes"
+									],
+									"query": [
+										{
+											"key": "pageNumber",
+											"value": "0",
+											"disabled": true
+										},
+										{
+											"key": "pageSize",
+											"value": "2"
+										}
 									]
 								}
 							},
@@ -597,7 +651,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nome\": \"Tutor 1\",\r\n    \"telefone\": \"11111111111\",\r\n    \"cidade\": \"Cidade 1\",\r\n    \"sobre\": \"Descrição do sobre\",\r\n    \"imageUrl\": \"url da imagem\"\r\n}",
+									"raw": "{\r\n    \"nome\": \"Tutor 1\",\r\n    \"email\": \"email@teste.com\",\r\n    \"telefone\": \"12345678912\",\r\n    \"sobre\": \"Descrição do sobre\",\r\n    \"imageUrl\": \"http://exemplo.com/imagem1.jpg\",\r\n    \"cidade\": \"Cidade 1\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -655,7 +709,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nome\": \"Tutor 1 update\",\r\n    \"telefone\": \"11111111111\",\r\n    \"cidade\": \"Cidade 1 update\",\r\n    \"sobre\": \"Descrição do sobre update\",\r\n    \"imageUrl\": \"url update\"\r\n}",
+									"raw": "{\r\n    \"nome\": \"Tutor 1 update\",\r\n    \"email\": \"email2@teste.com.br\",\r\n    \"telefone\": \"99999999999\",\r\n    \"sobre\": \"Descrição do sobre update\",\r\n    \"imageUrl\": \"http://exemplo.com/imagem2.jpg\",\r\n    \"cidade\": \"Cidade 1 update\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -688,164 +742,15 @@
 					]
 				},
 				{
-					"name": "animais",
-					"item": [
-						{
-							"name": "findAll",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/api/v1/animais",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"animais"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "findById",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/api/v1/animais/:id",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"animais",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "1"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "save",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"nome\": \"Animal 2 teste\",\r\n    \"idade\": \"5\",\r\n    \"descricao\": \"Descrição\",\r\n    \"adotado\": false,\r\n    \"imageUrl\": \"url\",\r\n    \"abrigo\": {\r\n        \"nome\": \"Abrigo 1\",\r\n        \"endereco\": {\r\n            \"logradouro\": \"Logradouro do animal 1\",\r\n            \"numero\": \"55\",\r\n            \"cep\": \"12232000\",\r\n            \"bairro\": {\r\n                \"nome\": \"Bairro 1\",\r\n                \"cidade\": {\r\n                    \"nome\": \"Cidade 1\",\r\n                    \"estado\": {\r\n                        \"sigla\": \"SP\"\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/api/v1/animais",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"animais"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "deleteById",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/api/v1/animais/:id",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"animais",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "1"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "update",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"nome\": \"Animal 1 update\",\r\n    \"idade\": 7,\r\n    \"descricao\": \"Descrição update\",\r\n    \"adotado\": true,\r\n    \"imageUrl\": \"url update\",\r\n    \"abrigo\": {\r\n        \"nome\": \"Abrigo 1 update\",\r\n        \"endereco\": {\r\n            \"logradouro\": \"Logradouro do animal 1 update\",\r\n            \"numero\": \"55 update\",\r\n            \"cep\": \"12232333\",\r\n            \"bairro\": {\r\n                \"nome\": \"Bairro 1 update\",\r\n                \"cidade\": {\r\n                    \"nome\": \"Cidade 1 update\",\r\n                    \"estado\": {\r\n                        \"sigla\": \"RN\"\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/api/v1/animais/:id",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"animais",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "1"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
 					"name": "abrigos",
 					"item": [
 						{
-							"name": "findAll",
+							"name": "findAll Page",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/abrigos",
+									"raw": "http://localhost:8080/api/v1/abrigos?pageSize=2",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -855,6 +760,17 @@
 										"api",
 										"v1",
 										"abrigos"
+									],
+									"query": [
+										{
+											"key": "pageNumber",
+											"value": "0",
+											"disabled": true
+										},
+										{
+											"key": "pageSize",
+											"value": "2"
+										}
 									]
 								}
 							},
@@ -895,7 +811,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nome\": \"Abrigo 1\",\r\n    \"endereco\": {\r\n        \"logradouro\": \"Rua dos abrigos\",\r\n        \"numero\": \"2004\",\r\n        \"cep\": \"12234000\",\r\n        \"bairro\": {\r\n            \"nome\": \"Bairro 1\",\r\n            \"cidade\": {\r\n                \"nome\": \"Cidade do abrigo\",\r\n                \"estado\": {\r\n                    \"sigla\": \"SP\"\r\n                }\r\n            }\r\n        }\r\n    }\r\n}",
+									"raw": "{\r\n    \"nome\": \"Abrigo 1\",\r\n    \"email\": \"abrigo@teste.com.br\",\r\n    \"endereco\": {\r\n        \"logradouro\": \"Rua dos abrigos\",\r\n        \"numero\": \"2004\",\r\n        \"cep\": \"12234000\",\r\n        \"bairro\": {\r\n            \"nome\": \"Bairro 1\",\r\n            \"cidade\": {\r\n                \"nome\": \"Cidade 1\",\r\n                \"estado\": {\r\n                    \"sigla\": \"SP\"\r\n                }\r\n            }\r\n        }\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -986,6 +902,166 @@
 					]
 				},
 				{
+					"name": "animais",
+					"item": [
+						{
+							"name": "findAll Page",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/animais?pageSize=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"animais"
+									],
+									"query": [
+										{
+											"key": "pageNumber",
+											"value": "0",
+											"disabled": true
+										},
+										{
+											"key": "pageSize",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "findById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/animais/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"animais",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "save",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"Animal 1\",\r\n    \"idade\": \"5\",\r\n    \"descricao\": \"Descrição\",\r\n    \"adotado\": false,\r\n    \"imageUrl\": \"url\",\r\n    \"abrigoId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/animais",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"animais"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteById",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/animais/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"animais",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"Animal 1 update\",\r\n    \"idade\": 7,\r\n    \"descricao\": \"Descrição update\",\r\n    \"adotado\": true,\r\n    \"imageUrl\": \"url update\",\r\n    \"abrigo\": {\r\n        \"nome\": \"Abrigo 1 update\",\r\n        \"endereco\": {\r\n            \"logradouro\": \"Logradouro do animal 1 update\",\r\n            \"numero\": \"55 update\",\r\n            \"cep\": \"12232333\",\r\n            \"bairro\": {\r\n                \"nome\": \"Bairro 1 update\",\r\n                \"cidade\": {\r\n                    \"nome\": \"Cidade 1 update\",\r\n                    \"estado\": {\r\n                        \"sigla\": \"RN\"\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/animais/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"animais",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "adocoes",
 					"item": [
 						{
@@ -1041,12 +1117,12 @@
 							"response": []
 						},
 						{
-							"name": "findAll",
+							"name": "findAll Page",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/adocoes",
+									"raw": "http://localhost:8080/api/v1/adocoes?pageSize=2",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1056,6 +1132,17 @@
 										"api",
 										"v1",
 										"adocoes"
+									],
+									"query": [
+										{
+											"key": "pageNumber",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "pageSize",
+											"value": "2"
+										}
 									]
 								}
 							},
@@ -1127,7 +1214,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nome\": \"Tutor 1\",\r\n    \"telefone\": \"11111111111\",\r\n    \"cidade\": \"Cidade 1\",\r\n    \"sobre\": \"Descrição do sobre\",\r\n    \"imagemUrl\": \"url\"\r\n}",
+									"raw": "{\r\n    \"nome\": \"Tutor 1\",\r\n    \"email\": \"email@teste.com\",\r\n    \"telefone\": \"12345678912\",\r\n    \"sobre\": \"Descrição do sobre\",\r\n    \"imageUrl\": \"http://exemplo.com/imagem1.jpg\",\r\n    \"cidade\": \"Cidade 1\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1185,7 +1272,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nome\": \"Tutor 1 update\",\r\n    \"telefone\": \"11111111111\",\r\n    \"cidade\": \"Cidade 1 update\",\r\n    \"sobre\": \"Descrição do sobre update\",\r\n    \"imageUrl\": \"url update\"\r\n}",
+									"raw": "{\r\n    \"nome\": \"Tutor 1 update\",\r\n    \"email\": \"email2@teste.com.br\",\r\n    \"telefone\": \"99999999999\",\r\n    \"sobre\": \"Descrição do sobre update\",\r\n    \"imageUrl\": \"http://exemplo.com/imagem2.jpg\",\r\n    \"cidade\": \"Cidade 1 update\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1208,155 +1295,6 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "2"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "animais",
-					"item": [
-						{
-							"name": "findAll",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/api/v1/animais",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"animais"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "findById",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/api/v1/animais/:id",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"animais",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "1"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "save",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"nome\": \"Animal 2 teste\",\r\n    \"idade\": \"5\",\r\n    \"descricao\": \"Descrição\",\r\n    \"adotado\": false,\r\n    \"imageUrl\": \"url\",\r\n    \"abrigo\": {\r\n        \"nome\": \"Abrigo 1\",\r\n        \"endereco\": {\r\n            \"logradouro\": \"Logradouro do animal 1\",\r\n            \"numero\": \"55\",\r\n            \"cep\": \"12232000\",\r\n            \"bairro\": {\r\n                \"nome\": \"Bairro 1\",\r\n                \"cidade\": {\r\n                    \"nome\": \"Cidade 1\",\r\n                    \"estado\": {\r\n                        \"sigla\": \"SP\"\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/api/v1/animais",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"animais"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "deleteById",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/api/v1/animais/:id",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"animais",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "1"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "update",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"nome\": \"Animal 1 update\",\r\n    \"idade\": 7,\r\n    \"descricao\": \"Descrição update\",\r\n    \"adotado\": true,\r\n    \"imageUrl\": \"url update\",\r\n    \"abrigo\": {\r\n        \"nome\": \"Abrigo 1 update\",\r\n        \"endereco\": {\r\n            \"logradouro\": \"Logradouro do animal 1 update\",\r\n            \"numero\": \"55 update\",\r\n            \"cep\": \"12232333\",\r\n            \"bairro\": {\r\n                \"nome\": \"Bairro 1 update\",\r\n                \"cidade\": {\r\n                    \"nome\": \"Cidade 1 update\",\r\n                    \"estado\": {\r\n                        \"sigla\": \"RN\"\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/api/v1/animais/:id",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"animais",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
 											"value": "1"
 										}
 									]
@@ -1370,12 +1308,12 @@
 					"name": "abrigos",
 					"item": [
 						{
-							"name": "findAll",
+							"name": "findAll Page",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/abrigos",
+									"raw": "http://localhost:8080/api/v1/abrigos?pageSize=2",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1385,6 +1323,17 @@
 										"api",
 										"v1",
 										"abrigos"
+									],
+									"query": [
+										{
+											"key": "pageNumber",
+											"value": "0",
+											"disabled": true
+										},
+										{
+											"key": "pageSize",
+											"value": "2"
+										}
 									]
 								}
 							},
@@ -1425,7 +1374,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nome\": \"Abrigo 1\",\r\n    \"endereco\": {\r\n        \"logradouro\": \"Rua dos abrigos\",\r\n        \"numero\": \"2004\",\r\n        \"cep\": \"12234000\",\r\n        \"bairro\": {\r\n            \"nome\": \"Bairro 1\",\r\n            \"cidade\": {\r\n                \"nome\": \"Cidade do abrigo\",\r\n                \"estado\": {\r\n                    \"sigla\": \"SP\"\r\n                }\r\n            }\r\n        }\r\n    }\r\n}",
+									"raw": "{\r\n    \"nome\": \"Abrigo 1\",\r\n    \"email\": \"abrigo@teste.com.br\",\r\n    \"endereco\": {\r\n        \"logradouro\": \"Rua dos abrigos\",\r\n        \"numero\": \"2004\",\r\n        \"cep\": \"12234000\",\r\n        \"bairro\": {\r\n            \"nome\": \"Bairro 1\",\r\n            \"cidade\": {\r\n                \"nome\": \"Cidade 1\",\r\n                \"estado\": {\r\n                    \"sigla\": \"SP\"\r\n                }\r\n            }\r\n        }\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1483,7 +1432,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nome\": \"Abrigo update\",\r\n    \"endereco\": {\r\n        \"logradouro\": \"Rua dos abrigos update\",\r\n        \"numero\": \"2004 update\",\r\n        \"cep\": \"12234222\",\r\n        \"bairro\": {\r\n            \"nome\": \"Bairro 1 update\",\r\n            \"cidade\": {\r\n                \"nome\": \"Cidade do abrigo update\",\r\n                \"estado\": {\r\n                    \"sigla\": \"RN\"\r\n                }\r\n            }\r\n        }\r\n    }\r\n}",
+									"raw": "{\r\n    \"nome\": \"Abrigo update\",\r\n    \"email\": \"email update\",\r\n    \"endereco\": {\r\n        \"id\": 1,\r\n        \"logradouro\": \"Rua dos abrigos update\",\r\n        \"numero\": \"2004 update\",\r\n        \"cep\": \"12234222\",\r\n        \"bairro\": {\r\n            \"id\": 1,\r\n            \"nome\": \"bairro nome update\",\r\n            \"cidade\": {\r\n                \"id\": 1,\r\n                \"nome\": \"cidade update 3\",\r\n                \"estado\": {\r\n                    \"id\": 1,\r\n                    \"sigla\": \"RJ\"\r\n                }\r\n            }\r\n        }\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1506,7 +1455,167 @@
 									"variable": [
 										{
 											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "animais",
+					"item": [
+						{
+							"name": "findAll Page",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/animais?pageSize=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"animais"
+									],
+									"query": [
+										{
+											"key": "pageNumber",
+											"value": "0",
+											"disabled": true
+										},
+										{
+											"key": "pageSize",
 											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "findById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/animais/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"animais",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "save",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"Animal 1\",\r\n    \"idade\": \"5\",\r\n    \"descricao\": \"Descrição\",\r\n    \"adotado\": false,\r\n    \"imageUrl\": \"url\",\r\n    \"abrigoId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/animais",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"animais"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteById",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/animais/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"animais",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"Animal 1 update abrigo 2\",\r\n    \"idade\": 8,\r\n    \"descricao\": \"Descrição update teste\",\r\n    \"adotado\": false,\r\n    \"imageUrl\": \"http://exemplo.com/imagem.jpg\",\r\n    \"abrigoId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/animais/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"animais",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
 										}
 									]
 								}
@@ -1554,7 +1663,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/adocoes/83e5e3d0-c018-4d98-a6d8-c1c71783ac10",
+									"raw": "http://localhost:8080/api/v1/adocoes/6d281c6e-68f1-4586-9e2c-7f06897957bf",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1564,19 +1673,19 @@
 										"api",
 										"v1",
 										"adocoes",
-										"83e5e3d0-c018-4d98-a6d8-c1c71783ac10"
+										"6d281c6e-68f1-4586-9e2c-7f06897957bf"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "findAll",
+							"name": "findAll Page",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/adocoes",
+									"raw": "http://localhost:8080/api/v1/adocoes?pageSize=2",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1586,6 +1695,17 @@
 										"api",
 										"v1",
 										"adocoes"
+									],
+									"query": [
+										{
+											"key": "pageNumber",
+											"value": "0",
+											"disabled": true
+										},
+										{
+											"key": "pageSize",
+											"value": "2"
+										}
 									]
 								}
 							},
