@@ -25,7 +25,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString(of = { "id", "nome", "email", "telefone", "cidade", "sobre", "imageUrl" })
+@ToString(of = { "id", "nome", "email", "telefone", "cidade", "sobre", "createdAt", "updatedAt", "imageUrl", "senha", "animais" })
 @Entity
 @Table(name = "tutor")
 public class Tutor implements Serializable {

@@ -75,7 +75,7 @@ public class TutorTest {
 		tutor.setImageUrl("http://exemplo.com/imagem.jpg");
 		assertEquals("http://exemplo.com/imagem.jpg", tutor.getImageUrl());
 	}
-	
+
 	@Test
 	public void testSetSenha() {
 		Tutor tutor = new Tutor();
@@ -86,20 +86,26 @@ public class TutorTest {
 	@Test
 	public void testToString() {
 		Instant instant = Instant.parse("2023-04-12T11:19:42.861657100Z");
-		Tutor tutor = new Tutor(1, "Tutor", "email@teste.com.br", "Cidade", "Sobre", null, instant, instant, null, "senha");
+		Tutor tutor = new Tutor(1, "nome", "email", "9999999999999", "cidade", "sobre", instant, instant,
+				"http://exemplo.com/imagem.jpg", "senha", null);
+
 		String expected = "Tutor(id=" + tutor.getId() + ", nome=" + tutor.getNome() + ", email=" + tutor.getEmail()
 				+ ", telefone=" + tutor.getTelefone() + ", cidade=" + tutor.getCidade() + ", sobre=" + tutor.getSobre()
-				+ ", imageUrl=" + tutor.getImageUrl() + ")";
+				+ ", createdAt=" + tutor.getCreatedAt() + ", updatedAt=" + tutor.getUpdatedAt() + ", imageUrl="
+				+ tutor.getImageUrl() + ", senha=" + tutor.getSenha() + ", animais=" + tutor.getAnimais() + ")";
 		assertEquals(expected, tutor.toString());
 	}
-	
+
 	@Test
 	public void testHashCode() {
 		Instant instant = Instant.parse("2023-04-12T11:19:42.861657100Z");
-		Tutor tutor1 = new Tutor(1, "Tutor", "email@teste.com.br", "5511111111111", "Cidade", "Sobre", instant, instant, "http://exemplo.com/imagem.jpg", "senha");
-		Tutor tutor2 = new Tutor(1, "Tutor", "email@teste.com.br", "5511111111111", "Cidade", "Sobre", instant, instant, "http://exemplo.com/imagem.jpg", "senha");
-		Tutor tutor3 = new Tutor(2, "Tutor 3", "email3@teste.com.br", "5511333333333", "Cidade 3", "Sobre 3", instant, instant, "http://exemplo.com/imagem3.jpg", "senha");
-		
+		Tutor tutor1 = new Tutor(1, "nome", "email", "9999999999999", "cidade", "sobre", instant, instant,
+				"http://exemplo.com/imagem.jpg", "senha", null);
+		Tutor tutor2 = new Tutor(1, "nome", "email", "9999999999999", "cidade", "sobre", instant, instant,
+				"http://exemplo.com/imagem.jpg", "senha", null);
+		Tutor tutor3 = new Tutor(2, "Tutor 3", "email3@teste.com.br", "5511333333333", "Cidade 3", "Sobre 3", instant,
+				instant, "http://exemplo.com/imagem3.jpg", "senha", null);
+
 		assertEquals(tutor1.hashCode(), tutor2.hashCode());
 		assertNotEquals(tutor1.hashCode(), tutor3.hashCode());
 	}
@@ -107,10 +113,13 @@ public class TutorTest {
 	@Test
 	public void testEquals() {
 		Instant instant = Instant.parse("2023-04-12T11:19:42.861657100Z");
-		Tutor tutor1 = new Tutor(1, "Tutor", "email@teste.com.br", "5511111111111", "Cidade", "Sobre", instant, instant, "http://exemplo.com/imagem.jpg", "senha");
-		Tutor tutor2 = new Tutor(1, "Tutor", "email@teste.com.br", "5511111111111", "Cidade", "Sobre", instant, instant, "http://exemplo.com/imagem.jpg", "senha");
-		Tutor tutor3 = new Tutor(2, "Tutor 3", "email3@teste.com.br", "5511333333333", "Cidade 3", "Sobre 3", instant, instant, "http://exemplo.com/imagem3.jpg", "senha");
-		
+		Tutor tutor1 = new Tutor(1, "Tutor", "email@teste.com.br", "5511111111111", "Cidade", "Sobre", instant, instant,
+				"http://exemplo.com/imagem.jpg", "senha", null);
+		Tutor tutor2 = new Tutor(1, "Tutor", "email@teste.com.br", "5511111111111", "Cidade", "Sobre", instant, instant,
+				"http://exemplo.com/imagem.jpg", "senha", null);
+		Tutor tutor3 = new Tutor(2, "Tutor 3", "email3@teste.com.br", "5511333333333", "Cidade 3", "Sobre 3", instant,
+				instant, "http://exemplo.com/imagem3.jpg", "senha", null);
+
 		assertTrue(tutor1.equals(tutor2));
 		assertFalse(tutor1.equals(tutor3));
 	}
@@ -118,42 +127,49 @@ public class TutorTest {
 	@Test
 	public void testEqualsNull() {
 		Instant instant = Instant.parse("2023-04-12T11:19:42.861657100Z");
-		Tutor tutor = new Tutor(1, "Tutor", "email@teste.com.br", "5511111111111", "Cidade", "Sobre", instant, instant, "http://exemplo.com/imagem.jpg", "senha");
-		
+		Tutor tutor = new Tutor(1, "Tutor", "email@teste.com.br", "5511111111111", "Cidade", "Sobre", instant, instant,
+				"http://exemplo.com/imagem.jpg", "senha", null);
+
 		assertFalse(tutor.equals(null));
 	}
 
 	@Test
 	public void testEqualsDifferentClass() {
 		Instant instant = Instant.parse("2023-04-12T11:19:42.861657100Z");
-		Tutor tutor = new Tutor(1, "Tutor", "email@teste.com.br", "5511111111111", "Cidade", "Sobre", instant, instant, "http://exemplo.com/imagem.jpg", "senha");
-		
+		Tutor tutor = new Tutor(1, "Tutor", "email@teste.com.br", "5511111111111", "Cidade", "Sobre", instant, instant,
+				"http://exemplo.com/imagem.jpg", "senha", null);
+
 		assertFalse(tutor.equals("Tutor"));
 	}
 
 	@Test
 	public void testEqualsSameObject() {
 		Instant instant = Instant.parse("2023-04-12T11:19:42.861657100Z");
-		Tutor tutor = new Tutor(1, "Tutor", "email@teste.com.br", "5511111111111", "Cidade", "Sobre", instant, instant, "http://exemplo.com/imagem.jpg", "senha");
-		
+		Tutor tutor = new Tutor(1, "Tutor", "email@teste.com.br", "5511111111111", "Cidade", "Sobre", instant, instant,
+				"http://exemplo.com/imagem.jpg", "senha", null);
+
 		assertTrue(tutor.equals(tutor));
 	}
 
 	@Test
 	public void testEqualsDifferentObjectSameId() {
 		Instant instant = Instant.parse("2023-04-12T11:19:42.861657100Z");
-		Tutor tutor1 = new Tutor(1, "Tutor", "email@teste.com.br", "5511111111111", "Cidade", "Sobre", instant, instant, "http://exemplo.com/imagem.jpg", "senha");
-		Tutor tutor2 = new Tutor(1, "Tutor", "email@teste.com.br", "5511111111111", "Cidade", "Sobre", instant, instant, "http://exemplo.com/imagem.jpg", "senha");
-		
+		Tutor tutor1 = new Tutor(1, "Tutor", "email@teste.com.br", "5511111111111", "Cidade", "Sobre", instant, instant,
+				"http://exemplo.com/imagem.jpg", "senha", null);
+		Tutor tutor2 = new Tutor(1, "Tutor", "email@teste.com.br", "5511111111111", "Cidade", "Sobre", instant, instant,
+				"http://exemplo.com/imagem.jpg", "senha", null);
+
 		assertTrue(tutor1.equals(tutor2));
 	}
 
 	@Test
 	public void testEqualsDifferentObjectDifferentId() {
 		Instant instant = Instant.parse("2023-04-12T11:19:42.861657100Z");
-		Tutor tutor1 = new Tutor(1, "Tutor", "email@teste.com.br", "5511111111111", "Cidade", "Sobre", instant, instant, "http://exemplo.com/imagem.jpg", "senha");
-		Tutor tutor2 = new Tutor(2, "Tutor", "email@teste.com.br", "5511111111111", "Cidade", "Sobre", instant, instant, "http://exemplo.com/imagem.jpg", "senha");
-		
+		Tutor tutor1 = new Tutor(1, "Tutor", "email@teste.com.br", "5511111111111", "Cidade", "Sobre", instant, instant,
+				"http://exemplo.com/imagem.jpg", "senha", null);
+		Tutor tutor2 = new Tutor(2, "Tutor", "email@teste.com.br", "5511111111111", "Cidade", "Sobre", instant, instant,
+				"http://exemplo.com/imagem.jpg", "senha", null);
+
 		assertFalse(tutor1.equals(tutor2));
 	}
 

@@ -16,15 +16,18 @@ import org.hibernate.annotations.GenericGenerator;
 import com.github.wesleyav.adopet.entities.dto.requests.AdocaoRequestDTO;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-//@ToString(of = { "id", "nome", "email", "telefone", "cidade", "sobre", "imageUrl" })
+@ToString(of = { "id", "tutorId", "animalId", "dataAdocao" })
+@EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "adocao")
 public class Adocao {

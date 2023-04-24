@@ -130,8 +130,7 @@ public class AnimalTest {
 	@Test
 	public void testToString() {
 		Instant instant = Instant.parse("2023-04-12T11:19:42.861657100Z");
-		Animal animal = new Animal(1, "animal 1", "9", "descricao", false, "http://exemplo.com/imagem.jpg", instant,
-				instant, null);
+		Animal animal = new Animal(1, "animal", "0", "descricao", false, "http://exemplo.com/imagem.jpg", instant, instant, null, null);
 
 		String expected = "Animal(id=" + animal.getId() + ", nome=" + animal.getNome() + ", idade=" + animal.getIdade()
 				+ ", descricao=" + animal.getDescricao() + ", adotado=" + animal.getAdotado() + ", imageUrl="
@@ -144,12 +143,9 @@ public class AnimalTest {
 	@Test
 	public void testHashCode() {
 		Instant instant = Instant.parse("2023-04-12T11:19:42.861657100Z");
-		Animal animal1 = new Animal(1, "animal 1", "9", "descricao", false, "http://exemplo.com/imagem.jpg", instant,
-				instant, null);
-		Animal animal2 = new Animal(1, "animal 1", "9", "descricao", false, "http://exemplo.com/imagem.jpg", instant,
-				instant, null);
-		Animal animal3 = new Animal(2, "animal 3", "3", "descricao 3", false, "http://exemplo.com/imagem3.jpg", instant,
-				instant, null);
+		Animal animal1 = new Animal(1, "animal", "0", "descricao", false, "http://exemplo.com/imagem.jpg", instant, instant, null, null);
+		Animal animal2 = new Animal(1, "animal", "0", "descricao", false, "http://exemplo.com/imagem.jpg", instant, instant, null, null);
+		Animal animal3 = new Animal(2, "animal2", "1", "descricao2", false, "http://exemplo.com/imagem2.jpg", instant, instant, null, null);
 
 		assertEquals(animal1.hashCode(), animal2.hashCode());
 		assertNotEquals(animal1.hashCode(), animal3.hashCode());
@@ -159,12 +155,9 @@ public class AnimalTest {
 	public void testEquals() {
 		Instant instant = Instant.parse("2023-04-12T11:19:42.861657100Z");
 
-		Animal animal1 = new Animal(1, "animal 1", "9", "descricao", false, "http://exemplo.com/imagem.jpg", instant,
-				instant, null);
-		Animal animal2 = new Animal(1, "animal 1", "9", "descricao", false, "http://exemplo.com/imagem.jpg", instant,
-				instant, null);
-		Animal animal3 = new Animal(2, "animal 3", "3", "descricao 3", false, "http://exemplo.com/imagem3.jpg", instant,
-				instant, null);
+		Animal animal1 = new Animal(1, "animal", "0", "descricao", false, "http://exemplo.com/imagem.jpg", instant, instant, null, null);
+		Animal animal2 = new Animal(1, "animal", "0", "descricao", false, "http://exemplo.com/imagem.jpg", instant, instant, null, null);
+		Animal animal3 = new Animal(2, "animal2", "1", "descricao2", false, "http://exemplo.com/imagem2.jpg", instant, instant, null, null);
 
 		assertTrue(animal1.equals(animal2));
 		assertFalse(animal1.equals(animal3));
@@ -173,8 +166,7 @@ public class AnimalTest {
 	@Test
 	public void testEqualsNull() {
 		Instant instant = Instant.parse("2023-04-12T11:19:42.861657100Z");
-		Animal animal = new Animal(1, "animal 1", "9", "descricao", false, "http://exemplo.com/imagem.jpg", instant,
-				instant, null);
+		Animal animal = new Animal(1, "animal", "0", "descricao", false, "http://exemplo.com/imagem.jpg", instant, instant, null, null);
 
 		assertFalse(animal.equals(null));
 	}
@@ -182,8 +174,7 @@ public class AnimalTest {
 	@Test
 	public void testEqualsDifferentClass() {
 		Instant instant = Instant.parse("2023-04-12T11:19:42.861657100Z");
-		Animal animal = new Animal(1, "animal 1", "9", "descricao", false, "http://exemplo.com/imagem.jpg", instant,
-				instant, null);
+		Animal animal = new Animal(1, "animal 1", "9", "descricao", false, "http://exemplo.com/imagem.jpg", instant, instant, null, null);
 
 		assertFalse(animal.equals("Animal"));
 	}
@@ -191,8 +182,7 @@ public class AnimalTest {
 	@Test
 	public void testEqualsSameObject() {
 		Instant instant = Instant.parse("2023-04-12T11:19:42.861657100Z");
-		Animal animal = new Animal(1, "animal 1", "9", "descricao", false, "http://exemplo.com/imagem.jpg", instant,
-				instant, null);
+		Animal animal = new Animal(1, "animal 1", "9", "descricao", false, "http://exemplo.com/imagem.jpg", instant, instant, null, null);
 
 		assertTrue(animal.equals(animal));
 	}
@@ -200,10 +190,8 @@ public class AnimalTest {
 	@Test
 	public void testEqualsDifferentObjectSameId() {
 		Instant instant = Instant.parse("2023-04-12T11:19:42.861657100Z");
-		Animal animal1 = new Animal(1, "animal 1", "9", "descricao", false, "http://exemplo.com/imagem.jpg", instant,
-				instant, null);
-		Animal animal2 = new Animal(1, "animal 1", "9", "descricao", false, "http://exemplo.com/imagem.jpg", instant,
-				instant, null);
+		Animal animal1 = new Animal(1, "animal 1", "9", "descricao", false, "http://exemplo.com/imagem.jpg", instant, instant, null, null);
+		Animal animal2 = new Animal(1, "animal 1", "9", "descricao", false, "http://exemplo.com/imagem.jpg", instant, instant, null, null);
 
 		assertTrue(animal1.equals(animal2));
 	}
@@ -211,10 +199,8 @@ public class AnimalTest {
 	@Test
 	public void testEqualsDifferentObjectDifferentId() {
 		Instant instant = Instant.parse("2023-04-12T11:19:42.861657100Z");
-		Animal animal1 = new Animal(1, "animal 1", "9", "descricao", false, "http://exemplo.com/imagem.jpg", instant,
-				instant, null);
-		Animal animal2 = new Animal(2, "animal 1", "9", "descricao", false, "http://exemplo.com/imagem.jpg", instant,
-				instant, null);
+		Animal animal1 = new Animal(1, "animal 1", "9", "descricao", false, "http://exemplo.com/imagem.jpg", instant, instant, null, null);
+		Animal animal2 = new Animal(2, "animal 1", "9", "descricao", false, "http://exemplo.com/imagem.jpg", instant, instant, null, null);
 
 		assertFalse(animal1.equals(animal2));
 	}
