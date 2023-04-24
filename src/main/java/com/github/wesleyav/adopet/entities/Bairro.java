@@ -31,7 +31,7 @@ public class Bairro implements Serializable {
 	private String nome;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cidade", referencedColumnName = "id")
+	@JoinColumn(name = "cidade_id", referencedColumnName = "id")
 	private Cidade cidade;
 
 }

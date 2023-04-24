@@ -35,7 +35,7 @@ public class Endereco implements Serializable {
 	private String cep;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "bairro", referencedColumnName = "id")
+	@JoinColumn(name = "bairro_id", referencedColumnName = "id")
 	private Bairro bairro;
 
 }

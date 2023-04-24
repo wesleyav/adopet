@@ -43,7 +43,7 @@ public class Abrigo implements Serializable {
 	private Instant updatedAt;
 
 	@OneToOne(cascade = CascadeType.DETACH)
-	@JoinColumn(name = "endereco", referencedColumnName = "id")
+	@JoinColumn(name = "endereco_id", referencedColumnName = "id")
 	private Endereco endereco;
 
 	@Override
