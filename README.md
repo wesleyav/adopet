@@ -18,188 +18,211 @@ Consiste em uma plataforma denominada Adopet, criada para conectar pessoas que d
 
 ### Tecnologias utilizadas
 
-| Tecnologia  | Versão  |
-|---|---|
-| Spring  | 2.7.10  |
-| H2 Database  | 2.1.214  |
-| Springdoc Open API  | 1.6.15  |
-| MySQL Database | 8.0
-| Maven | 3.9.0 |
+| Tecnologia         | Versão  |
+| ------------------ | ------- |
+| Spring             | 2.7.10  |
+| H2 Database        | 2.1.214 |
+| Springdoc Open API | 1.6.15  |
+| MySQL Database     | 8.0     |
+| Maven              | 3.9.0   |
 
 ### Modelo Entidade Relacionamento (MER)
-![](/src/main/resources/docs/img/graphql-mer.png)
+![](/src/main/resources/docs/img/mer.png)
 
 ### Banco de dados MySQL
-#### Cria banco de dados sakila
+#### Script para criação do banco de dados db_adopet
 ```sql
-CREATE DATABASE `sakila` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-```
-#### Cria as tabelas:
-```sql
--- sakila.country definition
+CREATE database db_adopet;
+USE db_adopet;
 
-CREATE TABLE `country` (
-  `country_id` smallint unsigned NOT NULL AUTO_INCREMENT,
-  `country` varchar(50) NOT NULL,
-  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`country_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE IF NOT EXISTS `db_adopet`.`estado` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `sigla` VARCHAR(2) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
+CREATE TABLE IF NOT EXISTS `db_adopet`.`cidade` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NULL,
+  `estado_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_cidade_estado2_idx` (`estado_id` ASC) VISIBLE,
+  CONSTRAINT `fk_cidade_estado2`
+    FOREIGN KEY (`estado_id`)
+    REFERENCES `db_adopet`.`estado` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
--- sakila.city definition
+CREATE TABLE IF NOT EXISTS `db_adopet`.`bairro` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NULL,
+  `cidade_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_bairro_cidade2_idx` (`cidade_id` ASC) VISIBLE,
+  CONSTRAINT `fk_bairro_cidade2`
+    FOREIGN KEY (`cidade_id`)
+    REFERENCES `db_adopet`.`cidade` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
-CREATE TABLE `city` (
-  `city_id` smallint unsigned NOT NULL AUTO_INCREMENT,
-  `city` varchar(50) NOT NULL,
-  `country_id` smallint unsigned NOT NULL,
-  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`city_id`),
-  KEY `idx_fk_country_id` (`country_id`),
-  CONSTRAINT `fk_city_country` FOREIGN KEY (`country_id`) REFERENCES `country` (`country_id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=601 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-```
+CREATE TABLE IF NOT EXISTS `db_adopet`.`endereco` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `logradouro` VARCHAR(255) NULL,
+  `numero` VARCHAR(45) NULL,
+  `cep` VARCHAR(8) NULL,
+  `bairro_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_endereco_bairro2_idx` (`bairro_id` ASC) VISIBLE,
+  CONSTRAINT `fk_endereco_bairro2`
+    FOREIGN KEY (`bairro_id`)
+    REFERENCES `db_adopet`.`bairro` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
-#### Adiciona registros na tabela Country:
-```sql
-INSERT INTO sakila.country (country_id, country, last_update) VALUES(1, 'Afghanistan', '2006-02-15 04:44:00');
-INSERT INTO sakila.country (country_id, country, last_update) VALUES(2, 'Algeria', '2006-02-15 04:44:00');
-INSERT INTO sakila.country (country_id, country, last_update) VALUES(3, 'American Samoa', '2006-02-15 04:44:00');
-INSERT INTO sakila.country (country_id, country, last_update) VALUES(4, 'Angola', '2006-02-15 04:44:00');
-INSERT INTO sakila.country (country_id, country, last_update) VALUES(5, 'Anguilla', '2006-02-15 04:44:00');
-INSERT INTO sakila.country (country_id, country, last_update) VALUES(6, 'Argentina', '2006-02-15 04:44:00');
-INSERT INTO sakila.country (country_id, country, last_update) VALUES(7, 'Armenia', '2006-02-15 04:44:00');
-INSERT INTO sakila.country (country_id, country, last_update) VALUES(8, 'Australia', '2006-02-15 04:44:00');
-INSERT INTO sakila.country (country_id, country, last_update) VALUES(9, 'Austria', '2006-02-15 04:44:00');
-INSERT INTO sakila.country (country_id, country, last_update) VALUES(10, 'Azerbaijan', '2006-02-15 04:44:00');
-```
+CREATE TABLE IF NOT EXISTS `db_adopet`.`abrigo` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(100) NULL,
+  `email` VARCHAR(100) NULL,
+  `created_at` DATE NULL,
+  `updated_at` DATE NULL,
+  `endereco_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_abrigo_endereco2_idx` (`endereco_id` ASC) VISIBLE,
+  CONSTRAINT `fk_abrigo_endereco2`
+    FOREIGN KEY (`endereco_id`)
+    REFERENCES `db_adopet`.`endereco` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
-#### Adiciona registros na tabela City:
-```sql
-INSERT INTO sakila.city (city_id, city, country_id, last_update) VALUES(1, 'A Corua (La Corua)', 87, '2006-02-15 04:45:25');
-INSERT INTO sakila.city (city_id, city, country_id, last_update) VALUES(2, 'Abha', 82, '2006-02-15 04:45:25');
-INSERT INTO sakila.city (city_id, city, country_id, last_update) VALUES(3, 'Abu Dhabi', 101, '2006-02-15 04:45:25');
-INSERT INTO sakila.city (city_id, city, country_id, last_update) VALUES(4, 'Acua', 60, '2006-02-15 04:45:25');
-INSERT INTO sakila.city (city_id, city, country_id, last_update) VALUES(5, 'Adana', 97, '2006-02-15 04:45:25');
-INSERT INTO sakila.city (city_id, city, country_id, last_update) VALUES(6, 'Addis Abeba', 31, '2006-02-15 04:45:25');
-INSERT INTO sakila.city (city_id, city, country_id, last_update) VALUES(7, 'Aden', 107, '2006-02-15 04:45:25');
-INSERT INTO sakila.city (city_id, city, country_id, last_update) VALUES(8, 'Adoni', 44, '2006-02-15 04:45:25');
-INSERT INTO sakila.city (city_id, city, country_id, last_update) VALUES(9, 'Ahmadnagar', 44, '2006-02-15 04:45:25');
-INSERT INTO sakila.city (city_id, city, country_id, last_update) VALUES(10, 'Akishima', 50, '2006-02-15 04:45:25');
+CREATE TABLE IF NOT EXISTS `db_adopet`.`animal` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NULL,
+  `idade` VARCHAR(45) NULL,
+  `descricao` VARCHAR(100) NULL,
+  `adotado` TINYINT(1) NULL,
+  `image_url` VARCHAR(255) NULL,
+  `created_at` DATE NULL,
+  `updated_at` DATE NULL,
+  `abrigo_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_animal_abrigo2_idx` (`abrigo_id` ASC) VISIBLE,
+  CONSTRAINT `fk_animal_abrigo2`
+    FOREIGN KEY (`abrigo_id`)
+    REFERENCES `db_adopet`.`abrigo` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `db_adopet`.`tutor` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(100) NULL,
+  `email` VARCHAR(100) NULL,
+  `telefone` VARCHAR(13) NULL,
+  `sobre` VARCHAR(255) NULL,
+  `image_url` VARCHAR(255) NULL,
+  `cidade` VARCHAR(100) NULL,
+  `created_at` DATE NULL,
+  `updated_at` DATE NULL,
+  `senha` VARCHAR(255) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `db_adopet`.`adocao` (
+  `id` BINARY(16) NULL,
+  `tutor_id` INT NOT NULL,
+  `animal_id` INT NOT NULL,
+  `data_adocao` DATE NULL,
+  PRIMARY KEY (`tutor_id`, `animal_id`),
+  INDEX `fk_tutor_has_animal_animal1_idx` (`animal_id` ASC) VISIBLE,
+  INDEX `fk_tutor_has_animal_tutor1_idx` (`tutor_id` ASC) VISIBLE,
+  CONSTRAINT `fk_tutor_has_animal_tutor1`
+    FOREIGN KEY (`tutor_id`)
+    REFERENCES `db_adopet`.`tutor` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tutor_has_animal_animal1`
+    FOREIGN KEY (`animal_id`)
+    REFERENCES `db_adopet`.`animal` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 ```
 
 ### Dependências do projeto (poom.xml)
-```xml
-<dependencies>
-  <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter</artifactId>
-  </dependency>
-  <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-test</artifactId>
-    <scope>test</scope>
-  </dependency>
-  <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-web</artifactId>
-  </dependency>
-  <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-devtools</artifactId>
-    <scope>runtime</scope>
-    <optional>true</optional>
-  </dependency>
-  <dependency>
-    <groupId>org.springdoc</groupId>
-    <artifactId>springdoc-openapi-ui</artifactId>
-    <version>${springdoc.version}</version>
-  </dependency>
-  <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-data-jpa</artifactId>
-  </dependency>
-  <dependency>
-    <groupId>com.h2database</groupId>
-    <artifactId>h2</artifactId>
-    <scope>runtime</scope>
-  </dependency>
-  <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-validation</artifactId>
-  </dependency>
-  <dependency>
-    <groupId>com.mysql</groupId>
-    <artifactId>mysql-connector-j</artifactId>
-    <scope>runtime</scope>
-  </dependency>
-  <dependency>
-    <groupId>org.projectlombok</groupId>
-    <artifactId>lombok</artifactId>
-    <optional>true</optional>
-  </dependency>
-</dependencies>
-```
+![](/src/main/resources/docs/img/dependencias.jpg)
 
-### Como rodar a aplicação:
+### Como rodar a aplicação localmente:
+
 Clone o projeto:
+
 ```git
 git clone https://github.com/wesleyav/adopet.git
 ```
 Na raiz do projeto, execute:
 ```bash
-mvn spring-boot: run
+./mvnw spring-boot:run
+```
+
+### Como rodar a aplicação via Docker
+
+Clone o projeto:
+```bash
+git clone https://github.com/wesleyav/adopet.git
+```
+
+Execute o comando:
+```bash
+docker-compose up
 ```
 
 ### Endpoints
-Esse projeto possui 3 endpoints que podem ser customizados no arquivo application-dev.properties conforme informações disponiveis em https://github.com/graphql-java-kickstart/graphql-spring-boot.
 
-/graphql - endpoint para solicitações via POST
-/graphiql - endpoint para solicitações via GET (console web)
-/playground - endpoint para solicitações via GET (console web)
+#### Tutores
+| Método HTTP | Prefixo | Endpoint   | Descrição                    |
+| ----------- | ------- | ---------- | ---------------------------- |
+| GET         | /api/v1 | /tutores   | Retorna uma lista de tutores |
+| GET         | /api/v1 | /tutores/1 | Retorna o tutor com o id 1   |
+| POST        | /api/v1 | /tutores   | Cria um tutor                |
+| PUT         | /api/v1 | /tutores/1 | Atualiza o tutor com o id 1  |
+| DELETE      | /api/v1 | /tutores/1 | Remove o tutor com o id 1    |
 
-#### Acessando o console GraphiQL
-No browser, acesse http://localhost:8085/graphiql
+#### Abrigos
+| Método HTTP | Prefixo | Endpoint   | Descrição                             |
+| ----------- | ------- | ---------- | ------------------------------------- |
+| GET         | /api/v1 | /abrigos   | Retorna uma lista paginada de abrigos |
+| GET         | /api/v1 | /abrigos/1 | Retorna o abrigo com o id 1           |
+| POST        | /api/v1 | /abrigos   | Cria um abrigo                        |
+| PUT         | /api/v1 | /abrigos/1 | Atualiza o abrigo com o id 1          |
+| DELETE      | /api/v1 | /abrigos/1 | Remove o abrigo com o id 1            |
 
-![](/src/main/resources/docs/img/graphiql.png)
+#### Animais
+| Método HTTP | Prefixo | Endpoint   | Descrição                             |
+| ----------- | ------- | ---------- | ------------------------------------- |
+| GET         | /api/v1 | /animais   | Retorna uma lista paginada de animais |
+| GET         | /api/v1 | /animais/1 | Retorna o animal com o id 1           |
+| POST        | /api/v1 | /animais   | Cria um animal                        |
+| PUT         | /api/v1 | /animais/1 | Atualiza o animal com o id 1          |
+| DELETE      | /api/v1 | /animais/1 | Remove o animal com o id 1            |
+
+#### Adoções
+| Método HTTP | Prefixo | Endpoint   | Descrição                             |
+| ----------- | ------- | ---------- | ------------------------------------- |
+| GET         | /api/v1 | /animais   | Retorna uma lista paginada de adoções |
+| POST        | /api/v1 | /adocoes   | Realiza uma adoção                    |
+| DELETE      | /api/v1 | /adocoes/1 | Remove a adoção com o id (uuid)       |
+
+#### Acessando o Swagger:
+No browser, acesse http://localhost:8080/swagger-ui/index.html
+
+![](/src/main/resources/docs/img/swagger-endpoints.gif)
 <br>
 
-##### Query cidade por Id:
-
-![](/src/main/resources/docs/img/graphiql-query-cityById.png)
-<br>
-
-##### Query cidades:
-
-![](/src/main/resources/docs/img/graphiql-query-cities.png)
-<br>
-
-#### Acessando o console Playground
-No browser, acesse http://localhost:8085/playground
-
-![](/src/main/resources/docs/img/playground.png)
-<br>
-
-##### Query cidade por Id:
-
-![](/src/main/resources/docs/img/playground-query-cityById.png)
-<br>
-
-##### Query cidades:
-
-![](/src/main/resources/docs/img/playground-query-cities.png)
-<br>
-
-#### Acessando via Postman
-
-##### Query cidade por Id:
-![](/src/main/resources/docs/img/postman-query-cityById.png)
-<br>
-
-##### Query cidades:
-![](/src/main/resources/docs/img/postman-query-cities.png)
-<br>
 
 ## Licença 
 
 The [MIT License]() (MIT)
-Copyright :copyright: 2022 - Projeto básico usando GraphQL e Spring Boot
+Copyright :copyright: 2022 - Adopet
